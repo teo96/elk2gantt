@@ -81,6 +81,8 @@ function gantt(tasks) {
 	initTimeDomain(tasks);
 	initAxis();
 	
+	var div = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
+	
 	var svg = d3.select(selector)
 	.append("svg")
 	.attr("class", "chart")
@@ -106,7 +108,21 @@ function gantt(tasks) {
 	 .attr("height", function(d) { return y.rangeBand(); })
 	 .attr("width", function(d) { 
 	     return (x(d.endDate) - x(d.startDate)); 
-	     });
+	     })
+		.on("mouseover", function(d) {      
+						div.transition()        
+								.duration(200)      
+								.style("opacity", .9);      
+						div .html(d.tooltip)  
+								.style("left", (d3.event.pageX) + "px")     
+								.style("top", (d3.event.pageY - 28) + "px");    
+						})                  
+				.on("mouseout", function(d) {       
+						div.transition()        
+								.duration(500)      
+								.style("opacity", 0);   
+				});
+			 
 	 
 	var text = svg.selectAll("text")
 		.data(tasks)

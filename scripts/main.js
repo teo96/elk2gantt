@@ -50,6 +50,7 @@ function DoTheJob( ) {
 			taskNames.push( jobs[i].fields.jobName);
 			tasks.push({
 				"text" : jobs[i].fields.jobId,
+				"tooltip" : jobs[i].fields.jobId + "<br>" + jobs[i].fields.jobName,
 				"startDate" :  new Date(jobs[i].fields.jobStartTime),
 				"endDate" :  new Date(jobs[i].fields.jobEndTime),
 				"taskName" : jobs[i].fields.jobName,

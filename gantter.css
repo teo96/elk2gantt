@@ -35,3 +35,9 @@ html,body,#wrapper {
 .bar-killed {
 	fill: #ffbb33;
 }
+
+.bar-text  {
+	font-family: Arial, sans-serif;
+	font-size: 8px;
+	fill: black;
+}

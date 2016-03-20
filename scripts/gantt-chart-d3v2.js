@@ -1,6 +1,7 @@
 /**
  * @author Dimitry Kudrayvtsev
- * @version 2.1
+ * @version 2.2 - add text option
+ *
  */
 
 d3.gantt = function() {
@@ -31,7 +32,13 @@ d3.gantt = function() {
     var rectTransform = function(d) {
 			return "translate(" + x(d.startDate) + "," + y(d.taskName) + ")";
     };
-
+    
+		var textTransform = function(d) {
+			xx= x(d.startDate) + 10;
+			yy = y(d.taskName) +  y.rangeBand()/2;
+			return "translate(" + xx  +"," + yy + ") rotate(-90)";
+    };
+		
     var x = d3.time.scale().domain([ timeDomainStart, timeDomainEnd ]).range([ 0, width ]).clamp(true);
 
     var y = d3.scale.ordinal().domain(taskTypes).rangeRoundBands([ 0, height - margin.top - margin.bottom ], .1);
@@ -68,6 +75,7 @@ d3.gantt = function() {
 	yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
     };
     
+ 
 function gantt(tasks) {
 	
 	initTimeDomain(tasks);
@@ -84,7 +92,7 @@ function gantt(tasks) {
 	.attr("height", height + margin.top + margin.bottom)
 	.attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
 	
-      svg.selectAll(".chart")
+	svg.selectAll(".chart")
 	 .data(tasks, keyFunction).enter()
 	 .append("rect")
 	 .attr("rx", 5)
@@ -100,6 +108,17 @@ function gantt(tasks) {
 	     return (x(d.endDate) - x(d.startDate)); 
 	     });
 	 
+	var text = svg.selectAll("text")
+		.data(tasks)
+		.enter()
+		.append("text");
+		
+  var textLabels = text
+	 .attr("class", "bar-text") 
+	  //.attr("y", function(d) { return y.rangeBand()/2; })
+	 .attr("transform", textTransform)
+	 .attr("height", function(d) { return y.rangeBand(); })
+	 .text(function (d) { return d.text; });
 	 
 	 svg.append("g")
 	 .attr("class", "x axis")
@@ -222,6 +241,6 @@ gantt.timeDomain = function(value) {
 	selector = value;
 	return gantt;
     };
-
+		
     return gantt;
 };

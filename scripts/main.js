@@ -39,7 +39,6 @@ function DoTheJob( ) {
 										// End query.
         }
     }).then(function (reponse) {
-        console.log(reponse);
         var jobs=reponse.hits.hits;
 		// D3 code goes here.
 		var tasks = [];
@@ -51,6 +50,7 @@ function DoTheJob( ) {
 			tasks.push({
 				"text" : jobs[i].fields.jobId,
 				"tooltip" : jobs[i].fields.jobId + "<br>" + jobs[i].fields.jobName,
+				"url" : "http://www.google.com",
 				"startDate" :  new Date(jobs[i].fields.jobStartTime),
 				"endDate" :  new Date(jobs[i].fields.jobEndTime),
 				"taskName" : jobs[i].fields.jobName,

@@ -96,6 +96,7 @@ function gantt(tasks) {
 	
 	svg.selectAll(".chart")
 	 .data(tasks, keyFunction).enter()
+	 .append("svg:a").attr("xlink:href", function(d){return d.url;}).attr("xlink:target","_blank")
 	 .append("rect")
 	 .attr("rx", 5)
          .attr("ry", 5)
@@ -117,11 +118,11 @@ function gantt(tasks) {
 								.style("left", (d3.event.pageX) + "px")     
 								.style("top", (d3.event.pageY - 28) + "px");    
 						})                  
-				.on("mouseout", function(d) {       
-						div.transition()        
-								.duration(500)      
-								.style("opacity", 0);   
-				});
+		.on("mouseout", function(d) {       
+				div.transition()        
+						.duration(500)      
+						.style("opacity", 0);   
+		});
 			 
 	 
 	var text = svg.selectAll("text")
@@ -165,18 +166,18 @@ gantt.redraw = function(tasks) {
 					 if(taskStatus[d.status] == null){ return "bar";}
 					 return taskStatus[d.status];
 					 }) 
-	 .transition()
-	 .attr("y", 0)
-	 .attr("transform", rectTransform)
-	 .attr("height", function(d) { return y.rangeBand(); })
-	 .attr("width", function(d) { 
-	     return (x(d.endDate) - x(d.startDate)); 
-	     });
+				 .transition()
+				 .attr("y", 0)
+				 .attr("transform", rectTransform)
+				 .attr("height", function(d) { return y.rangeBand(); })
+				 .attr("width", function(d) { 
+						 return (x(d.endDate) - x(d.startDate)); 
+						 });
 
         rect.transition()
           .attr("transform", rectTransform)
-	 .attr("height", function(d) { return y.rangeBand(); })
-	 .attr("width", function(d) { 
+				 .attr("height", function(d) { return y.rangeBand(); })
+				 .attr("width", function(d) { 
 	     return (x(d.endDate) - x(d.startDate)); 
 	     });
         

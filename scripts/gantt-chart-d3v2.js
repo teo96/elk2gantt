@@ -115,7 +115,6 @@ function gantt(tasks) {
 		
   var textLabels = text
 	 .attr("class", "bar-text") 
-	  //.attr("y", function(d) { return y.rangeBand()/2; })
 	 .attr("transform", textTransform)
 	 .attr("height", function(d) { return y.rangeBand(); })
 	 .text(function (d) { return d.text; });

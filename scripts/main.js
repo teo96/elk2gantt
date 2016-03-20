@@ -9,7 +9,7 @@ function DoTheJob( ) {
 		//var to = Date.now(); 
 		
 		var from = new Date('2016-03-16T12:00:00');
-		var to = new Date('2016-03-16T19:00:59');
+		var to = new Date('2016-03-16T14:30:00');
 		//récupération des infos from & to dans l'url 
 		var query = getQueryParams(document.location.search);		
 		if (query.from != null) {from = new Date(parseInt(query.from))};
@@ -49,6 +49,7 @@ function DoTheJob( ) {
 		for ( var i = 0; i < jobs.length; i++) {
 			taskNames.push( jobs[i].fields.jobName);
 			tasks.push({
+				"text" : jobs[i].fields.jobId,
 				"startDate" :  new Date(jobs[i].fields.jobStartTime),
 				"endDate" :  new Date(jobs[i].fields.jobEndTime),
 				"taskName" : jobs[i].fields.jobName,
